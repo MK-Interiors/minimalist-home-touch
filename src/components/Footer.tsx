@@ -16,11 +16,17 @@ export const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <img 
-                src="/lovable-uploads/2834f62d-77ce-44e4-87cf-036e1a04dbd7.png" 
-                alt="MK Interiors" 
-                className="h-12 mb-4 brightness-0 invert"
-              />
+              {/* Modern MK Interiors Logo for Footer */}
+              <div className="flex items-center mb-4">
+                <div className="relative">
+                  <div className="bg-amber-500 text-white px-3 py-1.5 rounded-lg font-bold text-lg tracking-wider">
+                    MK
+                  </div>
+                  <div className="absolute -bottom-0.5 -right-0.5 bg-white text-gray-900 px-1.5 py-0.5 rounded text-xs font-semibold">
+                    INTERIORS
+                  </div>
+                </div>
+              </div>
             </div>
             <p className="text-gray-300 mb-4 leading-relaxed">
               Transform your space into something beautiful with MK Interiors. We bring elegance and sophistication to every project.

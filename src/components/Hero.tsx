@@ -50,7 +50,7 @@ export const Hero = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
@@ -65,11 +65,19 @@ export const Hero = () => {
           {/* Left side - Hero content */}
           <div className="text-center lg:text-left">
             <div className="mb-8">
-              <img 
-                src="/lovable-uploads/2834f62d-77ce-44e4-87cf-036e1a04dbd7.png" 
-                alt="MK Interiors Logo" 
-                className="h-20 mx-auto lg:mx-0 mb-6"
-              />
+              {/* Modern MK Interiors Logo */}
+              <div className="mx-auto lg:mx-0 mb-6">
+                <div className="flex items-center justify-center lg:justify-start">
+                  <div className="relative">
+                    <div className="bg-amber-500 text-white px-4 py-2 rounded-lg font-bold text-2xl tracking-wider shadow-lg">
+                      MK
+                    </div>
+                    <div className="absolute -bottom-1 -right-1 bg-white text-gray-900 px-2 py-1 rounded text-sm font-semibold shadow-md">
+                      INTERIORS
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Transform Your Space Into
@@ -81,14 +89,14 @@ export const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
                 onClick={scrollToContact}
-                className="bg-amber-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-amber-600 transition-colors flex items-center justify-center gap-2 group"
+                className="bg-amber-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-amber-600 transition-colors flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl"
               >
                 Get Free Consultation
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
               <button 
                 onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
-                className="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors"
+                className="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors shadow-lg hover:shadow-xl"
               >
                 View Our Work
               </button>
@@ -96,7 +104,7 @@ export const Hero = () => {
           </div>
 
           {/* Right side - Consultation Form */}
-          <div className="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl">
+          <div className="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-white/20">
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Get Free Consultation</h3>
               <p className="text-gray-600">Tell us about your dream space</p>
@@ -110,7 +118,7 @@ export const Hero = () => {
                   required
                   value={consultationData.name}
                   onChange={handleConsultationChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                   placeholder="Your Name"
                 />
               </div>
@@ -122,7 +130,7 @@ export const Hero = () => {
                   required
                   value={consultationData.email}
                   onChange={handleConsultationChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                   placeholder="Email Address"
                 />
               </div>
@@ -133,7 +141,7 @@ export const Hero = () => {
                   name="phone"
                   value={consultationData.phone}
                   onChange={handleConsultationChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                   placeholder="Phone Number"
                 />
               </div>
@@ -143,7 +151,7 @@ export const Hero = () => {
                   name="service"
                   value={consultationData.service}
                   onChange={handleConsultationChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                 >
                   <option value="">Select Service</option>
                   <option value="complete-home">Complete Home Interiors</option>
@@ -160,7 +168,8 @@ export const Hero = () => {
                   name="preferredDate"
                   value={consultationData.preferredDate}
                   onChange={handleConsultationChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                  min={new Date().toISOString().split('T')[0]}
                 />
               </div>
               
@@ -170,14 +179,14 @@ export const Hero = () => {
                   rows={3}
                   value={consultationData.message}
                   onChange={handleConsultationChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                   placeholder="Tell us about your project..."
                 ></textarea>
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-amber-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-amber-600 transition-colors"
+                className="w-full bg-amber-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-amber-600 transition-colors shadow-lg hover:shadow-xl"
               >
                 Get Free Quote
               </button>
