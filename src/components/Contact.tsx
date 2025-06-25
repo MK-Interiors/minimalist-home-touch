@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Send, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export const Contact = () => {
@@ -9,6 +9,7 @@ export const Contact = () => {
     email: "",
     phone: "",
     service: "",
+    preferredDate: "",
     message: ""
   });
 
@@ -18,6 +19,8 @@ export const Contact = () => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     
+    // Here you would integrate with Google Sheets API
+    // For now, we'll show a success message
     toast({
       title: "Message Sent!",
       description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
@@ -29,6 +32,7 @@ export const Contact = () => {
       email: "",
       phone: "",
       service: "",
+      preferredDate: "",
       message: ""
     });
   };
@@ -73,7 +77,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Email</div>
-                  <div className="text-gray-600">hello@designspace.com</div>
+                  <div className="text-gray-600">hello@mkinteriors.com</div>
                 </div>
               </div>
               
@@ -112,7 +116,7 @@ export const Contact = () => {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -128,7 +132,7 @@ export const Contact = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -145,7 +149,7 @@ export const Contact = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                     placeholder="Enter your phone number"
                   />
                 </div>
@@ -159,7 +163,7 @@ export const Contact = () => {
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                   >
                     <option value="">Select a service</option>
                     <option value="complete-home">Complete Home Interiors</option>
@@ -168,6 +172,24 @@ export const Contact = () => {
                     <option value="kitchen">Modular Kitchen</option>
                     <option value="renovation">Renovation</option>
                   </select>
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="preferredDate" className="block text-sm font-medium text-gray-900 mb-2">
+                  Preferred Contact Date
+                </label>
+                <div className="relative">
+                  <input
+                    type="date"
+                    id="preferredDate"
+                    name="preferredDate"
+                    value={formData.preferredDate}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                    min={new Date().toISOString().split('T')[0]}
+                  />
+                  <Calendar size={20} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
                 </div>
               </div>
               
@@ -182,14 +204,14 @@ export const Contact = () => {
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                   placeholder="Tell us about your project..."
                 ></textarea>
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-amber-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-amber-600 transition-colors flex items-center justify-center gap-2 group"
+                className="w-full bg-amber-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-amber-600 transition-colors flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl"
               >
                 Send Message
                 <Send size={20} className="group-hover:translate-x-1 transition-transform" />
