@@ -16,15 +16,16 @@ export const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              {/* Modern MK Interiors Logo for Footer */}
+              {/* Logo for Footer */}
               <div className="flex items-center mb-4">
-                <div className="relative">
-                  <div className="bg-amber-500 text-white px-3 py-1.5 rounded-lg font-bold text-lg tracking-wider">
-                    MK
-                  </div>
-                  <div className="absolute -bottom-0.5 -right-0.5 bg-white text-gray-900 px-1.5 py-0.5 rounded text-xs font-semibold">
-                    INTERIORS
-                  </div>
+                <img 
+                  src="/lovable-uploads/9802d09d-4afb-4559-a154-f3a55a4d8ef6.png" 
+                  alt="MK Interiors" 
+                  className="h-12 w-auto"
+                />
+                <div className="ml-3">
+                  <div className="text-lg font-bold text-white">MK INTERIORS</div>
+                  <div className="text-xs text-gray-400 font-medium">Interior Design Studio</div>
                 </div>
               </div>
             </div>

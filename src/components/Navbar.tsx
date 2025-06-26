@@ -21,16 +21,17 @@ export const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Modern Logo */}
+          {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <div className="flex items-center">
-              <div className="relative">
-                <div className="bg-amber-500 text-white px-3 py-1.5 rounded-lg font-bold text-xl tracking-wider shadow-md">
-                  MK
-                </div>
-                <div className="absolute -bottom-0.5 -right-0.5 bg-white text-gray-900 px-1.5 py-0.5 rounded text-xs font-semibold shadow-sm border">
-                  INTERIORS
-                </div>
+              <img 
+                src="/lovable-uploads/9802d09d-4afb-4559-a154-f3a55a4d8ef6.png" 
+                alt="MK Interiors" 
+                className="h-12 w-auto"
+              />
+              <div className="ml-3">
+                <div className="text-xl font-bold text-gray-900">MK INTERIORS</div>
+                <div className="text-xs text-gray-600 font-medium">Interior Design Studio</div>
               </div>
             </div>
           </div>

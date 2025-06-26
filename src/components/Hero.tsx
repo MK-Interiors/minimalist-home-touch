@@ -65,16 +65,17 @@ export const Hero = () => {
           {/* Left side - Hero content */}
           <div className="text-center lg:text-left">
             <div className="mb-8">
-              {/* Modern MK Interiors Logo */}
+              {/* Logo */}
               <div className="mx-auto lg:mx-0 mb-6">
                 <div className="flex items-center justify-center lg:justify-start">
-                  <div className="relative">
-                    <div className="bg-amber-500 text-white px-4 py-2 rounded-lg font-bold text-2xl tracking-wider shadow-lg">
-                      MK
-                    </div>
-                    <div className="absolute -bottom-1 -right-1 bg-white text-gray-900 px-2 py-1 rounded text-sm font-semibold shadow-md">
-                      INTERIORS
-                    </div>
+                  <img 
+                    src="/lovable-uploads/9802d09d-4afb-4559-a154-f3a55a4d8ef6.png" 
+                    alt="MK Interiors" 
+                    className="h-16 w-auto"
+                  />
+                  <div className="ml-4">
+                    <div className="text-3xl font-bold text-white">MK INTERIORS</div>
+                    <div className="text-sm text-white/80 font-medium">Interior Design Studio</div>
                   </div>
                 </div>
               </div>
