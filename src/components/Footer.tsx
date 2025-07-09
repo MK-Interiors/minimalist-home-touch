@@ -95,6 +95,7 @@ export const Footer = () => {
             <ul className="space-y-2 text-gray-300">
               <li>Complete Home Interiors</li>
               <li>Space Planning</li>
+              <li>Home Inspection</li>
               <li>Design Consultation</li>
               <li>Commercial Interiors</li>
               <li>Renovation Services</li>
