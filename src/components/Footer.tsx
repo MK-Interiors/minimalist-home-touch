@@ -24,20 +24,13 @@ export const Footer = () => {
           <div className="lg:col-span-1">
             <div className="mb-6">
               {/* Logo for Footer */}
-              <div className="flex items-center mb-4">
+              <div className="flex items-center mb-4 bg-white/90 rounded-lg shadow p-2 w-fit">
                 <img
                   src="/lovable-uploads/mklogo.png"
                   alt="MK Interiors"
-                  className="h-12 w-auto"
+                  className="h-12 w-auto object-contain drop-shadow-md transition-transform duration-300 hover:scale-105"
+                  style={{ maxWidth: "140px", minWidth: "80px" }}
                 />
-                <div className="ml-3">
-                  <div className="text-lg font-bold text-white">
-                    MK INTERIORS
-                  </div>
-                  <div className="text-xs text-gray-400 font-medium">
-                    Interior Design Studio
-                  </div>
-                </div>
               </div>
             </div>
             <p className="text-gray-300 mb-4 leading-relaxed">
@@ -45,30 +38,15 @@ export const Footer = () => {
               We bring elegance and sophistication to every project.
             </p>
             <div className="flex space-x-4">
+              
               <a
-                href="#"
+                href="https://www.instagram.com/mkinteriors2k05?igsh=MWRuem14Ym55cDg2Zg=="
                 className="text-gray-400 hover:text-amber-500 transition-colors"
               >
-                <Facebook size={20} />
+                <Instagram size={30} />
               </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-amber-500 transition-colors"
-              >
-                <Instagram size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-amber-500 transition-colors"
-              >
-                <Twitter size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-amber-500 transition-colors"
-              >
-                <Linkedin size={20} />
-              </a>
+              
+              
             </div>
           </div>
 
@@ -118,7 +96,7 @@ export const Footer = () => {
               <li>Complete Home Interiors</li>
               <li>Space Planning</li>
               <li>Design Consultation</li>
-              <li>Modular Kitchens</li>
+              <li>Commercial Interiors</li>
               <li>Renovation Services</li>
             </ul>
           </div>
@@ -129,18 +107,19 @@ export const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center">
                 <Phone size={16} className="text-amber-500 mr-3" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <span className="text-gray-300">+91 9493427181</span>
               </div>
               <div className="flex items-center">
                 <Mail size={16} className="text-amber-500 mr-3" />
-                <span className="text-gray-300">hello@mkinteriors.com</span>
+                <span className="text-gray-300">mkinteriors2k05@gmail.com</span>
               </div>
               <div className="flex items-start">
                 <MapPin size={16} className="text-amber-500 mr-3 mt-1" />
                 <span className="text-gray-300">
-                  123 Design Street
+                                      Flat No. 301, Raghava Towers
+
                   <br />
-                  Creative City, CC 12345
+                   Madinaguda, Hyderabad-  500049
                 </span>
               </div>
             </div>
@@ -151,7 +130,7 @@ export const Footer = () => {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 MK Interiors. All rights reserved.
+              © 2025 MK Interiors. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

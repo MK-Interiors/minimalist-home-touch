@@ -94,7 +94,9 @@ export const Contact = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Phone</div>
-                  <div className="text-gray-600">+1 (555) 123-4567</div>
+                  <div className="text-gray-600">+91 9493427181</div>
+                  <div className="text-gray-600">+91 9963977753</div>
+
                 </div>
               </div>
 
@@ -104,7 +106,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Email</div>
-                  <div className="text-gray-600">hello@mkinteriors.com</div>
+                  <div className="text-gray-600">mkinteriors2k05@gmail.com</div>
                 </div>
               </div>
 
@@ -113,9 +115,24 @@ export const Contact = () => {
                   <MapPin size={24} className="text-amber-600" />
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">Address</div>
+                  <div className="font-semibold text-gray-900">Address 1</div>
                   <div className="text-gray-600">
-                    123 Design Street, Creative City, CC 12345
+                    Flat No. 301, Raghava Towers, Madinaguda, Hyderabad-  500049. TS
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="flex items-center">
+                <div className="bg-amber-100 p-3 rounded-full mr-4">
+                  <MapPin size={24} className="text-amber-600" />
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900">Address 2</div>
+                  <div className="text-gray-600">
+                    Plot No. B-161, Raitu Bazar Rd, Vanasthalipuram, Hyderabad- 500070. TS
+
                   </div>
                 </div>
               </div>

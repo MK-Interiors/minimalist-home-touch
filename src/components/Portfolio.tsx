@@ -1,43 +1,18 @@
+import React, { useState } from "react";
+import imagesData from "../portfolioImages.json";
 
 export const Portfolio = () => {
-  const projects = [
-    {
-      id: 1,
-      title: "Modern Living Room",
-      category: "Living Room",
-      image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 2,
-      title: "Minimalist Bedroom",
-      category: "Bedroom",
-      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 3,
-      title: "Contemporary Kitchen",
-      category: "Kitchen",
-      image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 4,
-      title: "Elegant Dining Room",
-      category: "Dining Room",
-      image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 5,
-      title: "Luxury Bathroom",
-      category: "Bathroom",
-      image: "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 6,
-      title: "Home Office",
-      category: "Office",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-    }
-  ];
+  const projects = imagesData;
+  const [openGallery, setOpenGallery] = useState<null | number>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleOpen = (id: number, imgIdx: number = 0) => {
+    setOpenGallery(id);
+    setActiveIndex(imgIdx);
+  };
+  const handleClose = () => setOpenGallery(null);
+  const handlePrev = (images: string[]) => setActiveIndex((i) => (i === 0 ? images.length - 1 : i - 1));
+  const handleNext = (images: string[]) => setActiveIndex((i) => (i === images.length - 1 ? 0 : i + 1));
 
   return (
     <section id="portfolio" className="py-20 bg-white">
@@ -50,13 +25,15 @@ export const Portfolio = () => {
             Explore our portfolio of beautifully designed spaces that showcase our commitment to excellence.
           </p>
         </div>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <div key={project.id} className="group cursor-pointer">
-              <div className="relative overflow-hidden rounded-2xl shadow-lg">
-                <img 
-                  src={project.image} 
+              <div
+                className="relative overflow-hidden rounded-2xl shadow-lg"
+                onClick={() => handleOpen(project.id)}
+              >
+                <img
+                  src={project.images[0]}
                   alt={project.title}
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
@@ -71,6 +48,95 @@ export const Portfolio = () => {
           ))}
         </div>
       </div>
+      {/* Gallery Popup */}
+      {openGallery !== null && (() => {
+        const project = projects.find((p) => p.id === openGallery);
+        if (!project) return null;
+        const images = project.images;
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-fadeIn">
+            <div className="relative bg-white rounded-3xl shadow-2xl max-w-3xl w-full p-6 flex flex-col items-center animate-slideUp">
+              <button
+                className="fixed md:absolute top-6 right-6 md:top-4 md:right-4 text-gray-400 hover:text-gray-700 text-3xl font-bold focus:outline-none transition-colors duration-200 bg-white/90 rounded-full p-2 shadow-lg z-50 border-none"
+                style={{boxShadow: '0 2px 8px rgba(0,0,0,0.08)'}}
+                onClick={handleClose}
+                aria-label="Close gallery"
+              >
+                &times;
+              </button>
+              <div className="w-full flex flex-col items-center">
+                <div className="relative w-full flex items-center justify-center mb-4 min-h-[18rem]">
+                  <button
+                    className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-amber-100 text-amber-600 shadow-lg rounded-full p-2 text-2xl z-10 transition-all duration-200 border-none"
+                    onClick={() => handlePrev(images)}
+                    aria-label="Previous image"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                  </button>
+                  <img
+                    key={activeIndex}
+                    src={images[activeIndex]}
+                    alt={project.title}
+                    className="w-full max-h-[28rem] object-contain rounded-2xl shadow-xl transition-all duration-500 ease-in-out opacity-0 animate-fadeInImg"
+                    style={{animation: 'fadeInImg 0.5s'}}
+                  />
+                  <button
+                    className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-amber-100 text-amber-600 shadow-lg rounded-full p-2 text-2xl z-10 transition-all duration-200 border-none"
+                    onClick={() => handleNext(images)}
+                    aria-label="Next image"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="flex gap-2 justify-center mb-2 flex-wrap">
+                  {images.map((img, idx) => (
+                    <img
+                      key={idx}
+                      src={img}
+                      alt="thumb"
+                      className={`w-16 h-16 object-cover rounded-lg shadow ${idx === activeIndex ? "ring-2 ring-amber-300 scale-110" : "opacity-70"} cursor-pointer transition-all duration-200`}
+                      onClick={() => setActiveIndex(idx)}
+                      style={{transition: 'transform 0.2s, box-shadow 0.2s'}}
+                    />
+                  ))}
+                </div>
+                <div className="text-center mt-2 animate-fadeIn">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{project.title}</h3>
+                  <p className="text-sm text-gray-500">{project.category}</p>
+                </div>
+              </div>
+            </div>
+            <style jsx>{`
+              @keyframes fadeInImg {
+                from { opacity: 0; transform: scale(0.97); }
+                to { opacity: 1; transform: scale(1); }
+              }
+              .animate-fadeInImg {
+                animation: fadeInImg 0.5s;
+                opacity: 1 !important;
+              }
+              @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+              }
+              .animate-fadeIn {
+                animation: fadeIn 0.4s;
+              }
+              @keyframes slideUp {
+                from { transform: translateY(40px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+              }
+              .animate-slideUp {
+                animation: slideUp 0.5s cubic-bezier(0.4,0,0.2,1);
+              }
+            `}</style>
+          </div>
+        );
+      })()}
     </section>
   );
 };

@@ -9,14 +9,9 @@ export const About = () => {
       label: "Happy Clients"
     },
     {
-      icon: <Award size={24} />,
-      number: "5+",
-      label: "Design Awards"
-    },
-    {
       icon: <Clock size={24} />,
-      number: "19",
-      label: "Years Experience"
+      number: "2",
+      label: "Decades of Experience"
     },
     {
       icon: <Star size={24} />,

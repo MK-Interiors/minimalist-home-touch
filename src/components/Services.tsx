@@ -1,4 +1,4 @@
-import { Home, Palette, Lightbulb, Sofa, Building, Wrench } from "lucide-react";
+import { Home, Palette, Lightbulb, Sofa, Building, Wrench, ShieldCheck } from "lucide-react";
 
 export const Services = () => {
   const services = [
@@ -13,19 +13,19 @@ export const Services = () => {
       description: "Optimal layout design to maximize functionality and flow in your space."
     },
     {
+      icon: <Building size={32} />,
+      title: "Commercial Interiors",
+      description: "Transform your business spaces with stylish, efficient, and brand-focused commercial interior solutions."
+    },
+    {
       icon: <Lightbulb size={32} />,
       title: "Design Consultation",
       description: "Expert advice on color schemes, furniture selection, and design concepts."
     },
     {
-      icon: <Sofa size={32} />,
-      title: "Furniture Selection",
-      description: "Curated furniture pieces that perfectly complement your style and space."
-    },
-    {
-      icon: <Building size={32} />,
-      title: "Modular Kitchens",
-      description: "Modern, functional kitchen designs with premium materials and finishes."
+      icon: <ShieldCheck size={32} />,
+      title: "Home Inspection",
+      description: "Thorough home inspection services to ensure safety, quality, and peace of mind for your living space."
     },
     {
       icon: <Wrench size={32} />,

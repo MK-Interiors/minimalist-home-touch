@@ -226,7 +226,7 @@ export const Hero = () => {
                 type="submit"
                 className="w-full bg-amber-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-amber-600 transition-colors shadow-lg hover:shadow-xl"
               >
-                Get Free Quote
+                Book Now
               </button>
             </form>
           </div>
