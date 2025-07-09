@@ -10,12 +10,12 @@ export const About = () => {
     },
     {
       icon: <Award size={24} />,
-      number: "50+",
+      number: "5+",
       label: "Design Awards"
     },
     {
       icon: <Clock size={24} />,
-      number: "5",
+      number: "19",
       label: "Years Experience"
     },
     {
@@ -31,7 +31,7 @@ export const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-              Creating Beautiful Spaces Since 2019
+              Creating Beautiful Spaces Since 2005
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
               DesignSpace is a premier interior design company dedicated to transforming homes into beautiful, functional spaces. Our team of experienced designers combines creativity with practicality to deliver exceptional results.
