@@ -1,66 +1,89 @@
-import { useState } from "react";
-import { Phone, Mail, MapPin, Send, Calendar } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
+import { CheckCircle2 } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  ArrowRight,
+  MessageCircle,
+  ChevronDown,
+  User
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/lib/supabaseClient";
+import { FaWhatsapp } from "react-icons/fa";
 
 export const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    preferredDate: "",
-    message: "",
-  });
-
   const { toast } = useToast();
+  const [showContactOptions, setShowContactOptions] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-
-    // Insert into Supabase
-    const { error } = await supabase.from("Contact").insert([
-      {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        service: formData.service,
-        date: formData.preferredDate,
-        message: formData.message,
-      },
-    ]);
-
-    if (error) {
-      toast({
-        title: "Submission Failed",
-        description: error.message,
-        variant: "destructive",
-      });
-      return;
+  useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setShowContactOptions(false);
     }
-
-    toast({
-      title: "Message Sent!",
-      description:
-        "Thank you for your inquiry. We'll get back to you within 24 hours.",
-    });
-
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      preferredDate: "",
-      message: "",
-    });
   };
 
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
+const [formData, setFormData] = useState({
+  name: "",
+  phone: "",
+  location: "",
+});
+
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    await emailjs.send(
+      "service_kuezt9q",
+      "template_tz5c81f",
+      {
+  name: formData.name,
+  phone: formData.phone,
+  location: formData.location,
+},
+      "YnqcRdjlu7lp9csA9"
+    );
+
+    toast({
+  title: "Inquiry Submitted Successfully!",
+  description: "Our team will contact you shortly.",
+  className:
+    "bg-[#0f1726]/95 backdrop-blur-xl border border-[#d4af37]/20 text-white shadow-[0_20px_60px_rgba(0,0,0,0.35)] rounded-2xl",
+  action: (
+    <CheckCircle2 className="text-[#d4af37] w-5 h-5" />
+  ),
+});
+
+    setFormData({
+      name: "",
+      phone: "",
+      location: "",
+    });
+
+  } catch (error) {
+    toast({
+  title: "Submission Failed",
+  description: "Please try again in a moment.",
+  className:
+    "bg-[#1b0f0f]/95 backdrop-blur-xl border border-red-500/20 text-white shadow-[0_20px_60px_rgba(0,0,0,0.35)] rounded-2xl",
+});
+  }
+};
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setFormData({
       ...formData,
@@ -69,219 +92,288 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Get In Touch
+    <section id="contact" className="relative pt-24 pb-28 overflow-hidden bg-gradient-to-b from-[#f8f4ee] via-[#f3ece2] to-[#ebe1d2]">
+      <div className="absolute inset-0 flex justify-center pointer-events-none">
+  <div className="w-[600px] h-[600px] bg-[#d4af37]/10 blur-3xl rounded-full" />
+</div>
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-[-0.04em] leading-[1.05] text-[#1f1a17] mb-5">
+            Let’s Design Your Dream Space
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Ready to transform your space? Contact us for a free consultation
-            and let's bring your vision to life.
+          <div className="w-24 h-[2px] rounded-full bg-gradient-to-r from-[#d4af37] to-transparent mx-auto mb-7 opacity-80" />
+          <p className="text-lg text-gray-600 max-w-xl mx-auto">
+            <p className="text-[17px] sm:text-lg text-[#5f5a54] leading-[1.9] max-w-2xl mx-auto">
+  Ready to transform your interiors? Schedule a personalized consultation and let’s bring your vision to life with timeless, elegant design.
+</p>
           </p>
         </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-14 lg:gap-20 items-start mt-16">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-8">
-              Contact Information
-            </h3>
+  {/* LEFT SIDE - CONTACT INFO */}
+  <motion.div
+  initial={{ opacity: 0, x: -40 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8, ease: "easeOut" }}
+  viewport={{ once: true }}
+  className="pt-4"
+>
+  <div className="mb-10">
+  <div className="inline-block mb-10">
+    <p className="text-[17px] font-semibold uppercase tracking-[0.22em] text-[#1f1a17] mb-1">
+      CONTACT DETAILS
+    </p>
 
-            <div className="space-y-6">
-              <div className="flex items-center">
-                <div className="bg-amber-100 p-3 rounded-full mr-4">
-                  <Phone size={24} className="text-amber-600" />
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900">Phone</div>
-                  <div className="text-gray-600">+91 9493427181</div>
-                  <div className="text-gray-600">+91 9963977753</div>
+    <div className="w-24 h-[2px] rounded-full bg-gradient-to-r from-[#1f1a17] to-transparent opacity-80" />
+  </div>
+</div>
 
-                </div>
-              </div>
+  <div className="flex-1 leading-none space-y-8 max-w-md">
 
-              <div className="flex items-center">
-                <div className="bg-amber-100 p-3 rounded-full mr-4">
-                  <Mail size={24} className="text-amber-600" />
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900">Email</div>
-                  <div className="text-gray-600">mkinteriors2k05@gmail.com</div>
-                </div>
-              </div>
+    {/* Phone */}
+    <div className="flex items-start gap-3 text-left cursor-pointer">
+      <div className="pt-[2px] text-[#c79a32] shrink-0">
+        <Phone size={20} />
+      </div>
 
-              <div className="flex items-center">
-                <div className="bg-amber-100 p-3 rounded-full mr-4">
-                  <MapPin size={24} className="text-amber-600" />
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900">Address 1</div>
-                  <div className="text-gray-600">
-                    Flat No. 301, Raghava Towers, Madinaguda, Hyderabad-  500049. TS
-
-                  </div>
-                </div>
-              </div>
-
-
-              <div className="flex items-center">
-                <div className="bg-amber-100 p-3 rounded-full mr-4">
-                  <MapPin size={24} className="text-amber-600" />
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900">Address 2</div>
-                  <div className="text-gray-600">
-                    Plot No. B-161, Raitu Bazar Rd, Vanasthalipuram, Hyderabad- 500070. TS
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-900 mb-2"
-                  >
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
-                    placeholder="Enter your full name"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-900 mb-2"
-                  >
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
-                    placeholder="Enter your email"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-gray-900 mb-2"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
-                    placeholder="Enter your phone number"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="service"
-                    className="block text-sm font-medium text-gray-900 mb-2"
-                  >
-                    Service Interested In
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    value={formData.service}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="complete-home">
-                      Complete Home Interiors
-                    </option>
-                    <option value="space-planning">Space Planning</option>
-                    <option value="consultation">Design Consultation</option>
-                    <option value="kitchen">Modular Kitchen</option>
-                    <option value="renovation">Renovation</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="preferredDate"
-                  className="block text-sm font-medium text-gray-900 mb-2"
-                >
-                  Preferred Contact Date
-                </label>
-                <div className="relative">
-                  <input
-                    type="date"
-                    id="preferredDate"
-                    name="preferredDate"
-                    value={formData.preferredDate}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
-                    min={new Date().toISOString().split("T")[0]}
-                  />
-                  <Calendar
-                    size={20}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-900 mb-2"
-                >
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  required
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
-                  placeholder="Tell us about your project..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-amber-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-amber-600 transition-colors flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl"
-              >
-                Send Message
-                <Send
-                  size={20}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </button>
-            </form>
-          </div>
+      <div className="flex flex-col">
+        <div className="text-[18px] font-semibold text-[#1f1a17] mb-2">
+          Phone
         </div>
+
+        <div ref={dropdownRef} className="relative inline-block">
+
+  <button
+    onClick={() => setShowContactOptions((prev) => !prev)}
+    className="flex items-center gap-2 text-[15px] leading-[1.8] text-[#5f5a54] hover:text-[#b88a28] transition-colors duration-300"
+  >
+  
+    +91 9493427181
+    <ChevronDown size={16} />
+  </button>
+
+  {showContactOptions && (
+    <div className="absolute top-full left-0 mt-1 w-52 bg-white/95 backdrop-blur-xl border border-[#e7dccb] rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.08)] overflow-hidden z-50 transition-all duration-300">
+      
+      {/* Call */}
+      <a
+        href="tel:+919493427181"
+        className="flex items-center gap-3 px-5 py-4 text-[15px] text-[#1f1a17] hover:bg-[#f8f4ee] transition-colors duration-300"
+      >
+        <Phone size={18} className="text-[#b88a28]" />
+        Call Now
+      </a>
+
+      {/* WhatsApp */}
+      <a
+        href="https://wa.me/919493427181"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-3 px-5 py-4 text-[15px] text-[#1f1a17] hover:bg-[#f8f4ee] transition-colors duration-300 border-t border-[#eee4d6]"
+      >
+        <FaWhatsapp size={18} className="text-[#25D366]" />
+        WhatsApp Chat
+      </a>
+    </div>
+  )}
+</div>
+
+<a
+  href="tel:+919963977753"
+  className="mt-1 text-[15px] leading-[1.8] text-[#5f5a54] hover:text-[#b88a28] transition-colors duration-300"
+>
+  +91 9963977753
+</a>
+
+      </div>
+    </div>
+
+    {/* Email */}
+    <div className="border-t border-black/10 pt-8 flex items-start gap-3 text-left cursor-pointer">
+      <div className="pt-[2px] text-[#c79a32] shrink-0">
+        <Mail size={20} />
+      </div>
+
+      <div>
+        <div className="text-[18px] font-semibold text-[#1f1a17] mb-2">
+          Email
+        </div>
+
+        <a
+  href="mailto:mkinteriors2k05@gmail.com"
+  className="text-[15px] leading-[1.8] text-[#5f5a54] hover:text-[#b88a28] transition-colors duration-300"
+>
+  mkinteriors2k05@gmail.com
+</a>
+      </div>
+    </div>
+
+    {/* Location 1 */}
+    <div className="border-t border-black/10 pt-8 flex items-start gap-3 text-left cursor-pointer">
+      <div className="pt-[2px] text-[#c79a32] shrink-0">
+        <MapPin size={20} />
+      </div>
+
+      <div>
+        <div className="text-[18px] font-semibold text-[#1f1a17] mb-2">
+          Studio Location
+        </div>
+
+        <a
+  href="https://maps.google.com/?q=Raghava+Towers+Madinaguda+Hyderabad"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-[15px] leading-[1.8] text-[#5f5a54] hover:text-[#b88a28] transition-colors duration-300"
+>
+  Raghava Towers, Madinaguda,
+  Hyderabad - 500049, TS
+</a>
+      </div>
+    </div>
+
+    {/* Location 2 */}
+    <div className="border-t border-black/10 pt-8 flex items-start gap-3 text-left cursor-pointer">
+      <div className="pt-[2px] text-[#c79a32] shrink-0">
+        <MapPin size={20} />
+      </div>
+
+      <div>
+        <div className="text-[18px] font-semibold text-[#1f1a17] mb-2">
+          Branch Office
+        </div>
+
+        <a
+  href="https://maps.google.com/?q=HUDA+Complex+Vanasthalipuram+Hyderabad"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-[15px] leading-[1.8] text-[#5f5a54] hover:text-[#b88a28] transition-colors duration-300"
+>
+  HUDA Complex, Vanasthalipuram,
+  Hyderabad - 500070, TS
+</a>
+      </div>
+    </div>
+  </div>
+</motion.div>
+
+  {/* RIGHT SIDE - FORM */}
+  <motion.form
+  onSubmit={handleSubmit}
+  initial={{ opacity: 0, x: 40 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
+  viewport={{ once: true }}
+  className="w-full max-w-[500px] mx-auto bg-white/42 backdrop-blur-xl rounded-[34px] border border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.08)] px-8 py-16 sm:px-10 sm:py-18"
+>
+  {/* Name */}
+  <div className="mb-6">
+    <label
+      htmlFor="name"
+      className="block text-[18px] font-semibold tracking-wide text-[#3d352f] mb-3 text-left"
+    >
+      Name
+    </label>
+
+    <div className="relative">
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        value={formData.name}
+        onChange={(e) => {
+          const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+          setFormData({ ...formData, name: value });
+        }}
+        placeholder="Enter Your Name"
+        className="w-full bg-white/55 backdrop-blur-md px-5 py-4 pl-12 rounded-2xl border border-white/40 text-[#1f1a17] placeholder:text-[#8a8178] shadow-[0_8px_25px_rgba(0,0,0,0.04)] focus:outline-none focus:border-[#d4af37]/40 focus:shadow-[0_0_0_4px_rgba(212,175,55,0.12)] focus:ring-2 focus:ring-[#d4af37]/20 transition-all duration-500"
+      />
+
+      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#c79a32]">
+        <User size={17} />
+      </span>
+    </div>
+  </div> 
+
+  {/* Phone */}
+  <div className="mb-8">
+    <label
+      htmlFor="phone"
+      className="block text-[18px] font-semibold tracking-wide text-[#3d352f] mb-3 text-left"
+    >
+      Phone Number
+    </label>
+
+    <div className="relative">
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        required
+        maxLength={10}
+        inputMode="numeric"
+        pattern="[0-9]{10}"
+        value={formData.phone}
+        onChange={(e) => {
+          const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+          setFormData({
+            ...formData,
+            phone: value,
+          });
+        }}
+        placeholder="99XXXXXX00"
+        className="w-full bg-white/55 backdrop-blur-md px-5 py-4 pl-12 rounded-2xl border border-white/40 text-[#1f1a17] placeholder:text-[#8a8178] shadow-[0_8px_25px_rgba(0,0,0,0.04)] focus:outline-none focus:border-[#d4af37]/40 focus:shadow-[0_0_0_4px_rgba(212,175,55,0.12)] focus:ring-2 focus:ring-[#d4af37]/20 transition-all duration-500"
+      />
+
+      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#c79a32]">
+        <Phone size={17} />
+      </span>
+    </div>
+  </div>
+  {/* Location */}
+<div className="mb-8">
+
+  <label
+    htmlFor="location"
+    className="block text-[18px] font-semibold tracking-wide text-[#3d352f] mb-3 text-left"
+  >
+    Project Location
+  </label>
+
+  <div className="relative">
+
+    <input
+      type="text"
+      id="location"
+      name="location"
+      required
+      value={formData.location}
+      onChange={handleChange}
+      placeholder="Enter Project Location"
+      className="w-full bg-white/55 backdrop-blur-md px-5 py-4 pl-12 rounded-2xl border border-white/40 text-[#1f1a17] placeholder:text-[#8a8178] shadow-[0_8px_25px_rgba(0,0,0,0.04)] focus:outline-none focus:border-[#d4af37]/40 focus:shadow-[0_0_0_4px_rgba(212,175,55,0.12)] focus:ring-2 focus:ring-[#d4af37]/20 transition-all duration-500"
+    />
+
+    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#c79a32]">
+
+      <MapPin size={17} />
+
+    </span>
+
+  </div>
+</div>
+  {/* Submit Button */}
+  <button
+    type="submit"
+    className="group w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#f3c243] via-[#d4a037] to-[#b8860b] hover:brightness-110 text-black font-semibold px-8 py-4 rounded-[20px] transition-all duration-500 shadow-[0_12px_35px_rgba(212,175,55,0.26)] hover:shadow-[0_20px_45px_rgba(212,175,55,0.38)]"
+  >
+    <>
+      Request Consultation
+      <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+    </>
+  </button>
+</motion.form>
+     </div>
+
       </div>
     </section>
   );

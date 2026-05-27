@@ -1,154 +1,98 @@
 import {
-  Phone,
-  Mail,
-  MapPin,
-  Facebook,
   Instagram,
-  Twitter,
-  Linkedin,
+  Mail,
 } from "lucide-react";
 
+import { FaWhatsapp } from "react-icons/fa";
+
 export const Footer = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <footer className="bg-gray-900 text-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Company Info */}
-          <div className="lg:col-span-1">
-            <div className="mb-6">
-              {/* Logo for Footer */}
-              <div className="flex items-center mb-4 bg-white/90 rounded-lg shadow p-2 w-fit">
-                <img
-                  src="/lovable-uploads/mklogo.png"
-                  alt="MK Interiors"
-                  className="h-12 w-auto object-contain drop-shadow-md transition-transform duration-300 hover:scale-105"
-                  style={{ maxWidth: "140px", minWidth: "80px" }}
-                />
-              </div>
-            </div>
-            <p className="text-gray-300 mb-4 leading-relaxed">
-              Transform your space into something beautiful with MK Interiors.
-              We bring elegance and sophistication to every project.
-            </p>
-            <div className="flex space-x-4">
-              
-              <a
-                href="https://www.instagram.com/mkinteriors2k05?igsh=MWRuem14Ym55cDg2Zg=="
-                className="text-gray-400 hover:text-amber-500 transition-colors"
-              >
-                <Instagram size={30} />
-              </a>
-              
-              
-            </div>
-          </div>
+    <footer className="relative overflow-hidden bg-gradient-to-b from-[#071120] via-[#081426] to-[#020817] text-white pt-5 pb-4">
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <button
-                  onClick={() => scrollToSection("hero")}
-                  className="text-gray-300 hover:text-amber-500 transition-colors"
-                >
-                  Home
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("services")}
-                  className="text-gray-300 hover:text-amber-500 transition-colors"
-                >
-                  Services
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("portfolio")}
-                  className="text-gray-300 hover:text-amber-500 transition-colors"
-                >
-                  Portfolio
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection("about")}
-                  className="text-gray-300 hover:text-amber-500 transition-colors"
-                >
-                  About
-                </button>
-              </li>
-            </ul>
-          </div>
+      {/* Subtle Ambient Glow */}
+      <div className="absolute inset-0 flex justify-center pointer-events-none">
+        <div className="w-[420px] h-[420px] bg-[#d4af37]/6 blur-3xl rounded-full" />
+      </div>
 
-          {/* Services */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Our Services</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>Complete Home Interiors</li>
-              <li>Space Planning</li>
-              <li>Home Inspection</li>
-              <li>Design Consultation</li>
-              <li>Commercial Interiors</li>
-              <li>Renovation Services</li>
-            </ul>
-          </div>
+      <div className="relative z-10 max-w-5xl mx-auto px-8 sm:px-10">
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
-            <div className="space-y-3">
-              <div className="flex items-center">
-                <Phone size={16} className="text-amber-500 mr-3" />
-                <span className="text-gray-300">+91 9493427181</span>
-              </div>
-              <div className="flex items-center">
-                <Mail size={16} className="text-amber-500 mr-3" />
-                <span className="text-gray-300">mkinteriors2k05@gmail.com</span>
-              </div>
-              <div className="flex items-start">
-                <MapPin size={16} className="text-amber-500 mr-3 mt-1" />
-                <span className="text-gray-300">
-                                      Flat No. 301, Raghava Towers
+        {/* Logo + Location */}
+<div className="flex items-end gap-4 mb-1">
 
-                  <br />
-                   Madinaguda, Hyderabad-  500049
-                </span>
-              </div>
-            </div>
-          </div>
+  <img
+    src="/lovable-uploads/mklogo.png"
+    alt="MK Interiors"
+    className="h-16 sm:h-20 w-auto object-contain"
+  />
+
+  <p className="text-[13px] uppercase tracking-[0.22em] text-[#d4af37]/70 pb-[20px]">
+    Hyderabad, India
+  </p>
+
+</div>
+        {/* Elegant Divider */}
+        <div className="ml-20 w-[150px] h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/80 to-transparent mb-[6px] rounded-full shadow-[0_0_10px_rgba(212,175,55,0.18)]" />
+        {/* Tagline */}
+        <div className="max-w-lg text-left mb-4">
+  <p className="text-[18px] sm:text-[22px] leading-[1.8] tracking-[-0.02em] text-white/85">
+    Transforming spaces with elegance,
+<br />
+timeless craftsmanship, and passion.
+  </p>
+</div>
+        
+        
+
+        {/* Social Icons */}
+        <div className="flex items-center gap-4 mb-1">
+
+          {/* Instagram */}
+          <a
+            href="https://www.instagram.com/mkinteriors2k05"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center hover:border-[#d4af37]/40 hover:bg-white/5 transition-all duration-500 hover:-translate-y-[2px]"
+          >
+            <Instagram
+              size={19}
+              className="text-white/75 hover:text-[#d4af37] transition-colors duration-500"
+            />
+          </a>
+
+          {/* WhatsApp */}
+          <a
+            href="https://wa.me/919493427181"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center hover:border-[#d4af37]/40 hover:bg-white/5 transition-all duration-500 hover:-translate-y-[2px]"
+          >
+            <FaWhatsapp
+  size={18}
+  className="text-white/75 hover:text-[#25D366] transition-colors duration-500"
+/>
+          </a>
+
+          {/* Email */}
+          <a
+            href="mailto:mkinteriors2k05@gmail.com?subject=Interior%20Design%20Consultation"
+            className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center hover:border-[#d4af37]/40 hover:bg-white/5 transition-all duration-500 hover:-translate-y-[2px]"
+          >
+            <Mail
+              size={19}
+              className="text-white/75 hover:text-[#d4af37] transition-colors duration-500"
+            />
+          </a>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © 2025 MK Interiors. All rights reserved.
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-amber-500 text-sm transition-colors"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-amber-500 text-sm transition-colors"
-              >
-                Terms of Service
-              </a>
-            </div>
-          </div>
-        </div>
+        
+
+        {/* Copyright */}
+        <div className="text-left">
+  <p className="text-[13px] tracking-wide text-white/40">
+    © 2025 MK Interiors. All rights reserved.
+  </p>
+</div>
+
       </div>
     </footer>
   );
